@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 function ReceiptCreateForm() {
     const [shop, setShop] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
-    const [keywordName, setKeywordName] = useState('');
+    //const [keywordName, setKeywordName] = useState('');
     const [date, setDate] = useState('');
     const [keywordId, setKeywordId] = useState('');
     const [userId, setUserId] = useState('');
-
+/*
     function keywordNameToKeywordId(keywordName) {
-        switch(keywordName){
+        switch (keywordName) {
 
             case '외식': setKeywordId(0); break;
             case '생필품/생활비': setKeywordId(1); break;
@@ -21,7 +21,7 @@ function ReceiptCreateForm() {
 
         }
 
-    }
+    }*/
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -29,10 +29,11 @@ function ReceiptCreateForm() {
         // 입력된 영수증 데이터를 객체로 만들기
         const receipt = {
             shop,
-            totalPrice,
-            keywordId,
-            date,
             userId,
+            date,
+            keywordId,
+            totalPrice
+
         };
 
         // 백엔드 API에 POST 요청 보내기
@@ -87,24 +88,22 @@ function ReceiptCreateForm() {
                     />
                 </div> */}
                 <div>
-                    <label htmlFor = "keywordName">영수증 키워드: </label>
+                    <label htmlFor="keywordName">영수증 키워드: </label>
                     <select
-                        id = "keywordName"
-                        value = {keywordName}
-                        onChange = {(e) => 
-                            {   
-                                setKeywordName(e.target.value);
-                                keywordNameToKeywordId(e.target.value);
-                            }
-                                }>
-                            <option value = "외식">외식</option>
-                            <option value = "교통">교통</option>
-                            <option value = "건강">건강</option>
-                            <option value = "생활">생활</option>
-                            <option value = "미용/패션">미용/패션</option>
-                            <option value = "저축/투자">저축/투자</option>
-                        </select>
-                        <p> 선택된 키워드 : {keywordName}</p>
+                        id="keywordId"
+                        value={keywordId}
+                        onChange={(e) => setKeywordId(e.target.value)}
+                        required
+                    >
+                        <option value="">-- 키워드를 선택하세요 --</option>
+                        <option value="0">외식</option>
+                        <option value="1">생활</option>
+                        <option value="2">미용/패션</option>
+                        <option value="3">건강</option>
+                        <option value="4">저축/투자</option>
+                        <option value="5">교통</option>
+                    </select>
+
                 </div>
                 <div>
                     <label htmlFor="date">소비 날짜 :</label>
@@ -117,12 +116,12 @@ function ReceiptCreateForm() {
                     />
                 </div>
                 <div>
-                    <label htmlFor = "userId">사용자 번호 :</label>
-                    <input 
+                    <label htmlFor="userId">사용자 번호 :</label>
+                    <input
                         type="number"
-                        id = "userId"
-                        value = {userId}
-                        onChange = {(e) => setUserId(e.target.value)}
+                        id="userId"
+                        value={userId}
+                        onChange={(e) => setUserId(e.target.value)}
                         required
                     />
                 </div>

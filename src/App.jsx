@@ -51,24 +51,37 @@ function App() {
 
 // export default App;
 
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HomeForm from './components/HomeForm';
 import UserCreateForm from './components/UserCreateForm';
 import ReceiptCreateForm from './components/ReceiptCreateForm';
 import LoginForm from './components/LoginForm';
 
 
 function App() {
+
+  const linkStyle = {
+    padding: '8px 16px',
+    backgroundColor: '#3498db',
+    color: 'white',
+    borderRadius: '5px',
+    textDecoration: 'none'
+  };
+
+
   return (
     <Router>
-      <nav>
-        <Link to = "/user/createUser">회원가입</Link>
-        <Link to = "/receipt/createRecipt">영수증 등록</Link>
-        <Link to = "/user/login">로그인</Link>
-      </nav>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Link to="/user/createUser" style={linkStyle}>회원가입</Link>
+        <Link to="/receipt/createRecipt" style={linkStyle}>영수증 등록</Link>
+        <Link to="/user/login" style={linkStyle}>로그인</Link>
+      </div>
+
       <Routes>
-        <Route path = "/user/createUser" element = {<UserCreateForm/>} />
-        <Route path = "receipt/createRecipt" element = {<ReceiptCreateForm/>} />
-        <Route path = "user/login" element = {<LoginForm/>} />
+        <Route path="/HomeForm" element={<HomeForm />} />
+        <Route path="/user/createUser" element={<UserCreateForm />} />
+        <Route path="receipt/createRecipt" element={<ReceiptCreateForm />} />
+        <Route path="user/login" element={<LoginForm />} />
       </Routes>
     </Router>
   );
