@@ -96,12 +96,12 @@ function ReceiptCreateForm() {
                         required
                     >
                         <option value="">-- 키워드를 선택하세요 --</option>
-                        <option value="0">외식</option>
-                        <option value="1">생활</option>
-                        <option value="2">미용/패션</option>
-                        <option value="3">건강</option>
-                        <option value="4">저축/투자</option>
-                        <option value="5">교통</option>
+                        <option value="1">외식</option>
+                        <option value="2">생활</option>
+                        <option value="3">미용/패션</option>
+                        <option value="4">건강</option>
+                        <option value="5">저축/투자</option>
+                        <option value="6">교통</option>
                     </select>
 
                 </div>
