@@ -5,6 +5,7 @@ import Home from './components/Home';
 import KakaoCallback from './components/KakaoCallback'; 
 import GoogleCallback from './components/GoogleCallback'; 
 import ConsentPage from './components/ConsentPage'; // ✅ 추가
+import SpendingSummary from './components/SpendingSummary';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} /> 
         <Route path="/home" element={<Home />} />
+       {/*} <Route path="/spendingSummary" element={<SpendingSummary />} /> */}
         <Route path="/oauth/kakao/callback" element={<KakaoCallback />} /> 
         <Route path="/oauth/google/callback" element={<GoogleCallback />} />
         <Route path="/consent" element={<ConsentPage />} /> {/* ✅ 추가 */}

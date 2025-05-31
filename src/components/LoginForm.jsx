@@ -31,7 +31,9 @@ function LoginForm() {
         const result = await response.json();
         localStorage.setItem('accessToken', result.token);
         localStorage.setItem('email', email);
+        console.log("로그인 성공 -> home으로 이동");
         navigate('/home');
+        //navigate('/spendingSummary');
       } else {
         setError('로그인에 실패했습니다.');
       }
