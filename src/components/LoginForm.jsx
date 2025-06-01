@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Box, TextField, Button, Typography, Divider, Stack } from '@mui/material'
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Divider,
+  Stack,
+  Card,
+} from '@mui/material';
 import icon from '../assets/icon.png'
 import { KAKAO_AUTH_URL, GOOGLE_AUTH_URL } from '../config'
 
@@ -33,37 +41,34 @@ export default function LoginForm() {
   }
 
   return (
-    <Box
-      component="main"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      minHeight="100vh"
-      bgcolor="background.default"
-      px={2}
-    >
-      <Typography variant="h3" gutterBottom color="primary">
-        가계로그
+  <Box
+    component="main"
+    display="flex"
+    flexDirection="column"
+    alignItems="center"
+    justifyContent="center"
+    minHeight="100vh"
+    bgcolor="background.default"
+    px={2}
+  >
+    {/* 타이틀 */}
+    <Typography variant="h3" gutterBottom color="primary" sx={{ fontWeight: 'bold' }}>
+      가계로그
+    </Typography>
+
+    {/* 아이콘 */}
+    <Box component="img" src={icon} alt="아이콘" width={120} mb={4} />
+
+    {/* 에러 메시지 */}
+    {error && (
+      <Typography variant="body2" color="error" mb={2}>
+        {error}
       </Typography>
+    )}
 
-      <Box component="img" src={icon} alt="아이콘" width={120} mb={4} />
-
-      {error && (
-        <Typography variant="body2" color="error" mb={2}>
-          {error}
-        </Typography>
-      )}
-
-      <Box
-        component="form"
-        onSubmit={handleLogin}
-        sx={{
-          width: '100%',
-          maxWidth: { xs: '100%', sm: 360, md: 600, lg: 800 },
-          mx: 'auto',
-        }}
-      >
+    {/* 로그인 Card */}
+    <Card elevation={3} sx={{ p: 4, width: '100%', maxWidth: 400 }}>
+      <Box component="form" onSubmit={handleLogin}>
         <Stack spacing={2}>
           <TextField
             label="이메일"
@@ -87,26 +92,54 @@ export default function LoginForm() {
 
           <Divider>또는</Divider>
 
+          {/* 카카오 로그인 버튼 */}
           <Button
             variant="contained"
             fullWidth
             onClick={() => (window.location.href = KAKAO_AUTH_URL)}
-            sx={{ bgcolor: '#FEE500', color: '#3C1E1E', '&:hover': { bgcolor: '#fada00' } }}
+            sx={{
+              bgcolor: '#FEE500',
+              color: '#3C1E1E',
+              fontWeight: 'bold',
+              '&:hover': { bgcolor: '#fada00' },
+            }}
           >
             카카오로 로그인
           </Button>
-          <Button variant="outlined" fullWidth onClick={() => (window.location.href = GOOGLE_AUTH_URL)}>
+
+          {/* 구글 로그인 버튼 */}
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={() => (window.location.href = GOOGLE_AUTH_URL)}
+            sx={{
+              fontWeight: 'bold',
+              color: '#555',
+              borderColor: '#ccc',
+              '&:hover': { bgcolor: '#f5f5f5' },
+            }}
+          >
             구글로 로그인
           </Button>
 
+          {/* 회원가입 링크 */}
           <Typography variant="body2" align="center">
             계정이 없으신가요?{' '}
-            <Link to="/signup" style={{ textDecoration: 'underline', color: (theme) => theme.palette.secondary.main }}>
+            <Link
+              to="/signup"
+              style={{
+                textDecoration: 'underline',
+                color: '#1976d2',
+                fontWeight: 'bold',
+              }}
+            >
               회원가입
             </Link>
           </Typography>
         </Stack>
       </Box>
-    </Box>
-  )
+    </Card>
+  </Box>
+);
+
 }

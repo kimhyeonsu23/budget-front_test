@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { Box, Typography, Button, Stack } from '@mui/material'
+import { Box, Typography, Button, Stack, Card, Grid } from '@mui/material'
+
 // @mui/aterial : Material UI(MUI)라는 react ui 컴포넌트 라이브러리이며 위 코드는 box, typography, button...불러옴
 // Box : HTML의  div와 비슷하지만 스타일 속성을 props로 줄 수 있는 레이아웃 박스
 // Typography : 텍스트를 보여줄 때 사용하는 컴포넌트, <h1>, <p>같은거 대신 씀
@@ -33,26 +34,6 @@ function Home() {
   const filteredData = data.filter(d => d.value > 0);
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#F13342', '#FA8042', '#BB8042'];
   const RADIAN = Math.PI / 180;
-
-  // const pieChart = ({   // 커스텀 라벨 함수.
-  //   cx, cy, midAngle, innerRadius, outerRadius, name, percent, index,
-  // }) => {
-  //   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  //   const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  //   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  //   return (
-  //     <text
-  //       x={x}
-  //       y={y}
-  //       fill="white"
-  //       textAnchor={x > cx ? 'start' : 'end'}
-  //       dominantBaseline="central"
-  //     >
-  //       {`${name} (${(percent * 100).toFixed(0)}%)`}
-  //     </text>
-  //   );
-  // };
 
 
   useEffect(() => { // 실행시점 : Home의 return이 실행된 뒤에 실행할 함수.
@@ -142,7 +123,104 @@ function Home() {
 
 
 
-  return (
+//   return (
+
+// <Box
+//       component="main"
+//       sx={{
+//         bgcolor: '#FFFDF7',
+//         pt: 6,
+//         pb: 10,
+//         px: 2,
+//       }}
+//     >
+//       <Box
+//         sx={{
+//           width: '100%',
+//           maxWidth: { xs: '100%', sm: 360, md: 600, lg: 800 },
+//           mx: 'auto',
+//           textAlign: 'center',
+//         }}
+//       >
+//         <Typography variant="h4" color="primary" gutterBottom>
+//           환영합니다!<br />
+//           {userName || email}님!
+//         </Typography>
+//         <Box>
+//           <div className="mt-8 text-[#5C4033]">
+//         <h3 className="text-xl sm:text-2xl font-bold">이번주 소비 금액 :</h3>
+//         <h3 className="text-lg sm:text-xl">{currentWeek.toLocaleString()} 원</h3>
+//         <h4 className="mt-4 font-semibold">카테고리 별 소비:</h4>
+//         <ul className="mt-2 text-base sm:text-lg text-left">
+//           <li>음식 : {foodExpense.toLocaleString()} 원</li>
+//           <li>생필품 : {livingExpense.toLocaleString()} 원</li>
+//           <li>패션/의류 : {fashionExpense.toLocaleString()} 원</li>
+//           <li>건강 : {healthExpense.toLocaleString()} 원</li>
+//           <li>투자 : {investmentExpense.toLocaleString()} 원</li>
+//           <li>교통 : {transportationExpense.toLocaleString()} 원</li>
+//         </ul>
+//       </div>
+//       <ResponsiveContainer width="100%" height={300}>
+//           <PieChart>
+//             <Pie
+//               data={filteredData}
+//               cx="50%"
+//               cy="50%"
+//               labelLine={false}
+//               label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+//               outerRadius={100}
+//               fill="#8884d8"
+//               dataKey="value"
+//             >
+//               {filteredData.map((entry, index) => (
+//                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+//               ))}
+//             </Pie>
+//           </PieChart>
+//         </ResponsiveContainer>
+//         </Box>
+
+//         <Stack spacing={2} mt={4}>
+//           <Button
+//             variant="contained"
+//             fullWidth
+//             onClick={() => navigate('receipt')}
+//             sx={{
+//               bgcolor: '#FFF1F0',
+//               color: 'primary.main',
+//               '&:hover': { bgcolor: '#ffeaea' },
+//             }}
+//           >
+//             영수증 등록
+//           </Button>
+
+//           <Button
+//             variant="contained"
+//             fullWidth
+//             onClick={handleLogout}
+//             sx={{
+//               bgcolor: '#FFDAD6',
+//               color: 'primary.main',
+//               '&:hover': { bgcolor: '#ffcdc0' },
+//             }}
+//           >
+//             로그아웃
+//           </Button>
+//         </Stack>
+//       </Box>
+//     </Box>
+
+
+
+
+
+
+//   );
+// }
+
+// export default Home;
+
+return (
 
 <Box
       component="main"
@@ -161,42 +239,60 @@ function Home() {
           textAlign: 'center',
         }}
       >
-        <Typography variant="h4" color="primary" gutterBottom>
-          환영합니다!<br />
+        <Typography variant="h5" color="primary" gutterBottom>
+          환영합니다 !<br />
           {userName || email}님!
         </Typography>
         <Box>
           <div className="mt-8 text-[#5C4033]">
-        <h3 className="text-xl sm:text-2xl font-bold">이번주 소비 금액 :</h3>
-        <h3 className="text-lg sm:text-xl">{currentWeek.toLocaleString()} 원</h3>
-        <h4 className="mt-4 font-semibold">카테고리 별 소비:</h4>
-        <ul className="mt-2 text-base sm:text-lg text-left">
-          <li>음식 : {foodExpense.toLocaleString()} 원</li>
-          <li>생필품 : {livingExpense.toLocaleString()} 원</li>
-          <li>패션/의류 : {fashionExpense.toLocaleString()} 원</li>
-          <li>건강 : {healthExpense.toLocaleString()} 원</li>
-          <li>투자 : {investmentExpense.toLocaleString()} 원</li>
-          <li>교통 : {transportationExpense.toLocaleString()} 원</li>
-        </ul>
+
+      <Grid container spacing={2} justifyContent="center" > {/* justifyContent : 수평정렬 / alignItems : 수직정렬 */}
+        <Grid item xs={12} sm={6}>
+          <Card sx={{ p: 4, backgroundColor: '#FFF8F0', boxShadow: 2 }}>
+            <Typography variant="h6" font-semibold>💸이번주 소비 금액</Typography>
+            <Typography variant="h6">{currentWeek.toLocaleString()} 원</Typography>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Card sx={{ p: 4, backgroundColor: '#FFF8F0', boxShadow: 2, fontStyle:'italic'}}>
+            <Typography variant="h6" font-semibold>카테고리 소비 금액</Typography>
+            <Typography variant="body2">🍔외식: {foodExpense.toLocaleString()} 원</Typography>
+            <Typography variant="body2">🛒생활: {livingExpense.toLocaleString()} 원</Typography>
+            <Typography variant="body2">👕패션/미용: {fashionExpense.toLocaleString()} 원</Typography>
+            <Typography variant="body2">🏥건강: {healthExpense.toLocaleString()} 원</Typography>
+            <Typography variant="body2">💴저축/투자: {investmentExpense.toLocaleString()} 원</Typography>
+            <Typography variant="body2">🚍교통: {transportationExpense.toLocaleString()} 원</Typography>
+          </Card>
+        </Grid>
+      </Grid>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={filteredData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {filteredData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+      <Box mt={6}>
+  <Card sx={{ p: 4, backgroundColor: '#FFF8F0', boxShadow: 2 , fontStype:'italic'}}>
+    <Typography variant="h6" gutterBottom color="primary">
+      📊 카테고리별 소비 분포
+    </Typography>
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart>
+        <Pie
+          data={filteredData}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+          outerRadius={100}
+          fill="#8884d8"
+          dataKey="value"
+        >
+          {filteredData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
+  </Card>
+</Box>
+
         </Box>
 
         <Stack spacing={2} mt={4}>
@@ -240,3 +336,5 @@ function Home() {
 export default Home;
 
 
+
+{/*  */}
