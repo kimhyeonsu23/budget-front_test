@@ -22,12 +22,12 @@ function Home() {
   const [transportationExpense, setTransportationExpense] = useState(0);
 
   const data = [
-    { name: '외식', value: foodExpense },
-    { name: '생필품/생활비', value: livingExpense },
-    { name: '패션/미용/의류', value: fashionExpense },
-    { name: '건강/병원비', value: healthExpense },
-    { name: '저축/투자', value: investmentExpense },
-    { name: '교통', value: transportationExpense },
+    { name: '외식', value: foodExpense , img:'🍔'},
+    { name: '생필품/생활비', value: livingExpense , img:'🛒'},
+    { name: '패션/미용/의류', value: fashionExpense , img:'👕'},
+    { name: '건강/병원비', value: healthExpense , img:'🏥'},
+    { name: '저축/투자', value: investmentExpense , img:'💴'},
+    { name: '교통', value: transportationExpense , img:'🚍'},
   ];
 
 
@@ -122,104 +122,6 @@ function Home() {
   };
 
 
-
-//   return (
-
-// <Box
-//       component="main"
-//       sx={{
-//         bgcolor: '#FFFDF7',
-//         pt: 6,
-//         pb: 10,
-//         px: 2,
-//       }}
-//     >
-//       <Box
-//         sx={{
-//           width: '100%',
-//           maxWidth: { xs: '100%', sm: 360, md: 600, lg: 800 },
-//           mx: 'auto',
-//           textAlign: 'center',
-//         }}
-//       >
-//         <Typography variant="h4" color="primary" gutterBottom>
-//           환영합니다!<br />
-//           {userName || email}님!
-//         </Typography>
-//         <Box>
-//           <div className="mt-8 text-[#5C4033]">
-//         <h3 className="text-xl sm:text-2xl font-bold">이번주 소비 금액 :</h3>
-//         <h3 className="text-lg sm:text-xl">{currentWeek.toLocaleString()} 원</h3>
-//         <h4 className="mt-4 font-semibold">카테고리 별 소비:</h4>
-//         <ul className="mt-2 text-base sm:text-lg text-left">
-//           <li>음식 : {foodExpense.toLocaleString()} 원</li>
-//           <li>생필품 : {livingExpense.toLocaleString()} 원</li>
-//           <li>패션/의류 : {fashionExpense.toLocaleString()} 원</li>
-//           <li>건강 : {healthExpense.toLocaleString()} 원</li>
-//           <li>투자 : {investmentExpense.toLocaleString()} 원</li>
-//           <li>교통 : {transportationExpense.toLocaleString()} 원</li>
-//         </ul>
-//       </div>
-//       <ResponsiveContainer width="100%" height={300}>
-//           <PieChart>
-//             <Pie
-//               data={filteredData}
-//               cx="50%"
-//               cy="50%"
-//               labelLine={false}
-//               label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-//               outerRadius={100}
-//               fill="#8884d8"
-//               dataKey="value"
-//             >
-//               {filteredData.map((entry, index) => (
-//                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-//               ))}
-//             </Pie>
-//           </PieChart>
-//         </ResponsiveContainer>
-//         </Box>
-
-//         <Stack spacing={2} mt={4}>
-//           <Button
-//             variant="contained"
-//             fullWidth
-//             onClick={() => navigate('receipt')}
-//             sx={{
-//               bgcolor: '#FFF1F0',
-//               color: 'primary.main',
-//               '&:hover': { bgcolor: '#ffeaea' },
-//             }}
-//           >
-//             영수증 등록
-//           </Button>
-
-//           <Button
-//             variant="contained"
-//             fullWidth
-//             onClick={handleLogout}
-//             sx={{
-//               bgcolor: '#FFDAD6',
-//               color: 'primary.main',
-//               '&:hover': { bgcolor: '#ffcdc0' },
-//             }}
-//           >
-//             로그아웃
-//           </Button>
-//         </Stack>
-//       </Box>
-//     </Box>
-
-
-
-
-
-
-//   );
-// }
-
-// export default Home;
-
 return (
 
 <Box
@@ -240,8 +142,8 @@ return (
         }}
       >
         <Typography variant="h5" color="primary" gutterBottom>
-          환영합니다 !<br />
-          {userName || email}님!
+          환영합니다 ❕<br />
+          {userName || email}님❕
         </Typography>
         <Box>
           <div className="mt-8 text-[#5C4033]">
@@ -267,31 +169,69 @@ return (
         </Grid>
       </Grid>
       </div>
-      <Box mt={6}>
-  <Card sx={{ p: 4, backgroundColor: '#FFF8F0', boxShadow: 2 , fontStype:'italic'}}>
+      <Box
+  width="100%"
+  display="flex"
+  justifyContent="center"
+  mt={6}
+>
+  <Card
+    sx={{
+      width: 400,
+      height: 400,
+      p: 4,
+      backgroundColor: '#FFF8F0',
+      boxShadow: 2,
+      fontStyle: 'italic',
+      position: 'relative',
+    }}
+  >
     <Typography variant="h6" gutterBottom color="primary">
       📊 카테고리별 소비 분포
     </Typography>
-    <ResponsiveContainer width="100%" height={300}>
-      <PieChart>
-        <Pie
-          data={filteredData}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-          outerRadius={100}
-          fill="#8884d8"
-          dataKey="value"
-        >
-          {filteredData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
+
+    <Box display="flex" justifyContent="center">
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={filteredData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={({ img, percent }) => `${img}${(percent * 100).toFixed(0)}%`}
+            outerRadius={100}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {filteredData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </Box>
+
+    <Card
+      sx={{
+        position: 'absolute',
+        bottom: 7,
+        right: 7,
+        p: 1,
+        backgroundColor: '#FFF8F0',
+        boxShadow: 2,
+        fontStyle: 'italic',
+      }}
+    >
+      <Typography variant="body2">🍔: {foodExpense.toLocaleString()} 원</Typography>
+      <Typography variant="body2">🛒: {livingExpense.toLocaleString()} 원</Typography>
+      <Typography variant="body2">👕: {fashionExpense.toLocaleString()} 원</Typography>
+      <Typography variant="body2">🏥: {healthExpense.toLocaleString()} 원</Typography>
+      <Typography variant="body2">💴: {investmentExpense.toLocaleString()} 원</Typography>
+      <Typography variant="body2">🚍: {transportationExpense.toLocaleString()} 원</Typography>
+    </Card>
   </Card>
 </Box>
+
 
         </Box>
 
