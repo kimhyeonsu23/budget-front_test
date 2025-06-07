@@ -14,13 +14,19 @@ import ConsentPage from './components/ConsentPage'
 import ReceiptUpload from './components/ReceiptUpload'
 import ProtectedRoute from './components/ProtectedRoute'
 
-function App() {
+
+function App() { {/* 앱의 뻐대(레이아웃 구조)와 라우팅을 통합하는 역할 + 전체적인 ui 레이아웃 구조도 정의 가능. */}
   return (
-    <BrowserRouter>
+    <BrowserRouter> {/* URL을 감지하고 라우팅함. */}
       {/* 전체 화면용 박스 */}
       <Box display="flex" flexDirection="column" minHeight="100vh">
+        {/* display="flex" : 자식들을 flex 박스로 배치하겠다는 뜻.
+            flexDirection-"column" : 위에서 아래로 배치(세로 정렬)
+            minHeight="100vh" : 전체 박스는 화면 높이 100%를 차지, 100% 화면 채움 */}
         {/* ─── 상단 콘텐츠 영역: Container 제거, 폭 100% 유지 ─── */}
         <Box flex="1" sx={{ width: '100%' }}>
+          {/* flex = "1" : 남는 공간을 최대한 다 이 영역이 차지하라는 뜻(메인 콘텐츠)
+              width: '100%' : 가로는 꽉차제*/}
           <Routes>
             <Route path="/" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
@@ -41,7 +47,7 @@ function App() {
             <Route
               path="/home"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute> {/* 사용자 설정 (커스텀 컨포넌트) : 로그인된 사용자만 접근할 수 있는 페이지를 보호하는 컴포넌트 */}
                   <Home />
                 </ProtectedRoute>
               }
@@ -54,6 +60,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
           </Routes>
         </Box>
 

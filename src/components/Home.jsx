@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { Box, Typography, Button, Stack, Card, Grid } from '@mui/material'
+import html2canvas from 'html2canvas'; // html2canvas 라는 라이브러리를 가져오는 코드 (이 라이브러리는 화면에 보이는 html요소를 캡처해서 이미지로 만드는 도구)
 
 // @mui/aterial : Material UI(MUI)라는 react ui 컴포넌트 라이브러리이며 위 코드는 box, typography, button...불러옴
 // Box : HTML의  div와 비슷하지만 스타일 속성을 props로 줄 수 있는 레이아웃 박스
@@ -53,7 +54,7 @@ function Home() {
       fetchKeywordTotalPrice();
     }
 
-  }, [navigate]);
+  }, [navigate]); // navigage 가 바뀔때마다 실행.
   // 만약 의존성 배열이 없다면 아무 조건없이 항상 실행함. 컴포넌트가 렌더링될때마다 매번 실행됨 (첫 렌더링 + 상태가 props가 바뀌면 다시 렌더링 + 렌더링 될때마다 렌더링.)
   // 의존성 배열이 빈배열이라면 딱 한번 최초 마운트 후 렌더링 됨. 
 
@@ -121,11 +122,28 @@ function Home() {
     }
   };
 
+  const downloadChart = () => {
+    const chartElement = document.getElementById('myPieChart'); // getElementById() : id가 'myPieChart"인 요소를 찾아서 변수 chartElement에 담음.
+
+    html2canvas(chartElement).then(canvas => { // chartElement를 화면 그대로 그림처럼 캡처하고 그 결과를 canvas로 받음
+      // html2canvas()는 비동기 함수라서 .then()으로 결과를 받아야 함. 여기서 canvas는 html <canvas>요소를 의미함.이미지로 쓸 수 있는 데이터.
+
+      const link = document.createElement('a'); // 새로 <a> 태그 (링크)를 하나 만듦. <a>태그는 원래 웹사이트 이동을 위해 쓰는데 download속성을 주면 파일 다운로드로 바뀜
+      link.download = 'pie_chart.png'; // 이 링크를 클릭했을때 저장할 파일 이름을 정해줌.
+      link.href = canvas.toDataURL(); // canvas를 이미지 데이터로 변환해서 링크의 주소로 설정함.
+      // toDataURL()은 이미지 데이터를 base64 형태의 문자열로 만들어줌. 실제로 브라우저가 인식 가능한 이미지 주소가 됨.
+      link.click(); // 만들어놓은 링크를 자동으로 클릭하게 되서 다운로드가 시작되도록 함.
+    })
+    // 흐름 : 차트가 있는 dom요소인 id = "myPieChart"를 찾음 -> html2canvas로 캡처해서 이미지를 만듦 -> a 태그를 만들어서 이미지로 다운로드 할 수 있게 설정
+    // -> 자동으로 클릭시켜서 사용자가 pie_chart.png를 다운로드 하게 함.
+  }
+
+{/*   */}
 
 return (
 
 <Box
-      component="main"
+      component="main" // Box 컴포넌트가 실제로 렌더링 될때 html 태그를 main으로 바꾸는 것. 원래 box는 기본적으로 div로 렌더링.
       sx={{
         bgcolor: '#FFFDF7',
         pt: 6,
@@ -150,7 +168,7 @@ return (
 
       <Grid container spacing={2} justifyContent="center" > {/* justifyContent : 수평정렬 / alignItems : 수직정렬 */}
         <Grid item xs={12} sm={6}>
-          <Card sx={{ p: 4, backgroundColor: '#FFF8F0', boxShadow: 2 }}>
+          <Card sx={{ p: 4, backgroundColor: '#FFF8F0', boxShadow: 2 , font: 'primary'}}>
             <Typography variant="h6" font-semibold>💸이번주 소비 금액</Typography>
             <Typography variant="h6">{currentWeek.toLocaleString()} 원</Typography>
           </Card>
@@ -177,12 +195,12 @@ return (
 >
   <Card
     sx={{
-      width: 400,
-      height: 400,
+      width: 500,
+      height: 450,
       p: 4,
-      backgroundColor: '#FFF8F0',
+      backgroundColor: '#FFF1F0',
       boxShadow: 2,
-      fontStyle: 'italic',
+      fontStyle: 'primary.main',
       position: 'relative',
     }}
   >
@@ -190,6 +208,7 @@ return (
       📊 카테고리별 소비 분포
     </Typography>
 
+    <div id="myPieChart">
     <Box display="flex" justifyContent="center">
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
@@ -210,6 +229,17 @@ return (
         </PieChart>
       </ResponsiveContainer>
     </Box>
+    </div>
+    <button
+    onClick={downloadChart} download
+    style={{
+      padding: '5px 5px',   // 버튼 크기 (상하, 좌우 여백)
+      backgroundColor: '#FFDAD6',
+      color: 'black',
+      fontSize: '14px',
+      borderRadius: '8px'   // 둥근 모서리
+    }}> 차트 저장
+    </button>
 
     <Card
       sx={{
@@ -250,13 +280,14 @@ return (
           </Button>
 
           <Button
-            variant="contained"
-            fullWidth
-            onClick={handleLogout}
-            sx={{
-              bgcolor: '#FFDAD6',
-              color: 'primary.main',
-              '&:hover': { bgcolor: '#ffcdc0' },
+            variant="contained" // contained 는 배경색이 있는 버튼, oulined : 테두리만 있는 버튼, text : 배경 없음, 글자만
+            fullWidth // 버튼이 부모 요소 너비 100%를 채우도록 하는 속성. 한줄짜리 전체 버튼을 만들고 싶을 때 사용.
+            onClick={handleLogout} // 버튼을 클릭했을때 실행할 함수를 연결하는 부분.
+            sx={{ // 스타일을 지정하는 mui전용 방식, 여기서 sx는 버튼 스타일을 지정하는곳.
+              bgcolor: '#FFDAD6', // 배경색
+              color: 'primary.main', // 글자색
+              '&:hover': { bgcolor: '#ffcdc0' }, // 버튼에 마우스를 올렸을때 hover 상태) 배경색을 바꾸는 설정.
+              // &는 현재 요소 버튼을 의미하고 :hover는 css 마우스오버 상태 => 호버시에는 색을 바꾸도록 하는것.
             }}
           >
             로그아웃
