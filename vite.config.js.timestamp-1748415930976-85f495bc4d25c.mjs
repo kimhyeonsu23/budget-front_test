@@ -34,7 +34,7 @@ var vite_config_default = defineConfig({
   server: {
     proxy: {
       "/user": {
-        target: "http://localhost:8080",
+        target: "http://localhost:8090",
         changeOrigin: true,
         secure: false
       }

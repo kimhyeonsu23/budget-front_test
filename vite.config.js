@@ -29,17 +29,17 @@ export default defineConfig({
 
     proxy: {
       '/receipt': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8090',
         changeOrigin: true,
         secure: false,
       },
       '/user': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8090',
         changeOrigin: true,
         secure: false,
       },
       '/receipt/image': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8090',
         changeOrigin: true,
         secure: false,
       },

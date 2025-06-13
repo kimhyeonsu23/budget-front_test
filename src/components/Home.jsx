@@ -61,7 +61,7 @@ const fetchCurrentWeek = async () => {
       
       console.log(" fetchCurrentWeek토큰 : " + token);
 
-      const response = await fetch('http://localhost:8080/statis/getReceipt/calCurrentWeek', {
+      const response = await fetch('http://localhost:8090/statis/getReceipt/calCurrentWeek', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ const fetchCurrentWeek = async () => {
     try {
       const token = localStorage.getItem('accessToken')
       
-      const res = await fetch('http://localhost:8080/statis/getReceipt/calKeywordTotalPrice', {
+      const res = await fetch('http://localhost:8090/statis/getReceipt/calKeywordTotalPrice', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
