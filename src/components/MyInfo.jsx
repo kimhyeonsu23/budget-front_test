@@ -29,7 +29,7 @@ export default function MyInfo() {
     try {
       const token = localStorage.getItem('accessToken')
       console.log("token : ", token);
-      const response = await fetch('http://localhost:8090/history/getGrantedDate', {
+      const response = await fetch('/history/getGrantedDate', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

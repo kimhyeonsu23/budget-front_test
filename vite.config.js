@@ -43,6 +43,16 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/statis': {
+        target: 'http://localhost:8090',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/history': {
+        target: 'http://localhost:8090',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 })
